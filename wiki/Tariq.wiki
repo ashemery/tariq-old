@@ -1,16 +1,21 @@
 A Hybrid Port Knocking System.
 
+
 = Tariq Overview: =
 
-*What does Tariq mean ? *
+
+= What does Tariq mean ? =
 It means knocking, hammering or coming at night :)
 
 الطَّرْقُ: الضَّرْبُ، أو بالمِطْرَقَةِ، بالكسر، والصَّكُّ، 
 -- القاموس المحيط
 
+
 = Why Is Tariq Secure? =
 
+
 = Why Is Tariq Needed? =
+
 
 = Howto Install Tariq? =
   # Requirements
@@ -23,8 +28,11 @@ It means knocking, hammering or coming at night :)
     * Configuring the Client
     * Configuring the Server
 
+
 = Howto use Tariq? =
 
+
 = Future Work (aka TODO): =
+
 
 = Changes: =
