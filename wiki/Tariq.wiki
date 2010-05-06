@@ -1,0 +1,30 @@
+#Hybrid Port Knocking System.
+
+= Tariq Overview: =
+
+*What does tariq mean ? *
+It means knocking, hammering or coming at night. 
+
+الطَّرْقُ: الضَّرْبُ، أو بالمِطْرَقَةِ، بالكسر، والصَّكُّ، 
+-- القاموس المحيط
+
+= Why Is tariq Secure? =
+
+= Why Is Tariq Needed? =
+
+= Installation =
+  #Requirements
+    * Python >= 2.6
+    * python-imaging  - Python Imaging Library (PIL)
+    * GnuGP
+    * Scapy
+    * A recent Linux kernel with iptables (eg. 2.6)
+  #Installation and Configuration
+    * Configuring the Client
+    * Configuring the Server
+
+= Howto use tariq: =
+
+= Future Work (aka TODO): =
+
+= Changes: =
