@@ -56,7 +56,7 @@ Tariq runs as a port authentication service on the iptables firewall, which vali
 
     secret_ports=10000,7456,22022,12121,10001
 
-    *Note:* 
+    === Note: ===
     you may pass the gpg user and knock sequence as arguments to TariqClient (see howto use section).
 
     * Configuring the Server
@@ -71,20 +71,20 @@ Tariq runs as a port authentication service on the iptables firewall, which vali
 
     Then select trust (5)
 
-    *Preparing iptables*
+    === Preparing iptables ===
     Create an iptables chain to be used by tariq server:
     iptables -P INPUT DROP 
     iptables -N tariq
     iptables -A INPUT -j tariq 
     iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-    *Optional:* 
+    === Optional: ===
     you may specify a range of ports to be filtered (dropped) in case you are running normal services on the same box:
     iptables -A INPUT -p tcp -m tcp --dport 1000,65535 -j DROP 
     iptables -A INPUT -p udp -m udp --dport 1000,65535 -j DROP 
     iptables -A INPUT -p tcp -m tcp --dport 80 -m state --state NEW -j ACCEPT
 
-    *IMPORTANT NOTE:* 
+    === IMPORTANT NOTE: ===
     Do not use the REJECT target with tariq.
 
     Now edit 'server.conf' and specify the correct sequence of ports, by using the secret_ports variable. Example:
