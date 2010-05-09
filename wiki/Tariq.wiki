@@ -104,6 +104,8 @@ Tariq runs as a port authentication service on the iptables firewall, which vali
 
 
 = Future Work (aka TODO): =
-
+  * Make installer (rpm/deb based package)
+  * Check if client uses a passphrase gpg key
+  * Make system work as a daemon (write init scripts)
 
 = Changes: =
