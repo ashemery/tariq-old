@@ -101,6 +101,20 @@ Tariq runs as a port authentication service on the iptables firewall, which vali
     open_udp_port=-A tariq -s {ip} -p udp -m state --state NEW -m udp --dport {dport} -j ACCEPT
 
 = Howto use Tariq? =
+To start running tariq server, just run the following command using user root:
+`./TariqServer`
+
+Now that you have tariq server running, the firewall rules configured on the server, and your profile installed on the client, you're ready to run some commands remotely or open some ports. Using user root, to open, for instance, ssh (22) on the remote server (example.com), all you simply need to do on the client, is run:
+`./TariqCleint -u tariq@arabnix.com example.com O 22`
+
+If you don't want to open a port but perform a remote command for instance restarting the httpd service on the box, you don't need to login remotely and do it yourself and still working with the default drop firewall. All you simply need to do on the client is run the following command:
+`./TariqCleint -u tariq@arabnix.com example.com E service httpd restart`
+
+Another example, here I'm sending an echo message to the box:
+`./TariqCleint -u tariq@arabnix.com example.com E echo “Hello, It's me tariq”`
+
+Finally to close the port you requested to open, all you need to do is:
+`./TariqCleint -u tariq@arabnix.com example.com C 22`
 
 
 = Future Work (aka TODO): =
