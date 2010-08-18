@@ -1,0 +1,4 @@
+#! /usr/bin/python
+from Tariq.TariqClient import main
+main()
+
