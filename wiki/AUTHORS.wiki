@@ -1,0 +1,30 @@
+`/**` <br>
+`*` <br>
+`*` Tariq � Copyright 2010, Arabnix - Linux Professional Solutions <br>
+`*` http://arabnix.com <br>
+`*` <br>
+`*` This program is free software: you can redistribute it and/or modify <br>
+`*` it under the terms of the GNU General Public License as published by <br>
+`*` the Free Software Foundation, version 3 of the License. <br>
+`*` <br>
+`*` This program is distributed in the hope that it will be useful, <br>
+`*` but WITHOUT ANY WARRANTY; without even the implied warranty of <br>
+`*` MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <br>
+`*` GNU General Public License for more details. <br>
+`*` <br>
+`*` You should have received a copy of the GNU General Public License <br>
+`*` along with this program. If not, see <http://opensource.org/licenses/gpl-license.php>. <br>
+`*` <br>
+`*/` <br>
+
+Please see: http://code.google.com/p/tariq/people/list/ for a list of all the people currently involved in Tariq.
+
+*Tariq Lead Developer*  : Ali Al-Shemery (aka: B!n@ry) <ali `[at]` arabnix `[dot]` com>
+
+
+== Copyrights ==
+
+Tariq contains code from the following applications:
+
+GNU General Public License v3 licenced:
+steganogra-py (c) 2010 by Zach.Varberg, http://code.google.com/p/steganogra-py/
