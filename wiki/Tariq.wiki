@@ -14,8 +14,7 @@ It means knocking, hammering or coming at night :)
 
 
 = Why Is Tariq Secure? =
-  * Tariq Server's code is very simple, and is written completely using scapy (python),
-  * The code is can be easily audited or studied by others,
+  * Tariq Server's code is very simple, and is written completely using scapy (python). This makes it easily audited or studied by others,
   * Tariq does not listen on any TCP/UDP port, which means no sockets is used. Tariq uses scapy's capabilities to sniff the incoming traffic and uses Packet Crafting techniques to reply back to an legitimate client,
   * The communication protocol is a simple secure encryption scheme that uses GnuPG keys with Steganography constructions. An observer watching packets is not given any indication that the SYN packet transmitted by 'Tariq' is a port knocking request, but even if they knew, there would be no way for them to determine which port was requested to open, or what task was requested to be done as all of that is inserted into a png picture using Steganography and then encrypted using GnuPG keys, 
   * Replaying the knock request later does them no good, and in fact does not provide any information that might be useful in determining the contents of future request. The mechanism works using a single packet for the mutual authentication.
