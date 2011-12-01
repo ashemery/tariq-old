@@ -59,11 +59,11 @@ class TariqServer(AnsweringMachine):
 
     def _run_cmd(self, ip, cmd, args):
       if cmd=="E":
-          print ' ** running [%s]' % args
+          print (' ** running [%s]') % args
           self._run_shell_cmd(args)
       elif cmd=='C':
           if not args.isdigit():
-              print " ** Error: dport should be an integer"
+              print (" ** Error: dport should be an integer")
               return
           k=1
           while(k):
@@ -71,12 +71,12 @@ class TariqServer(AnsweringMachine):
               if k: self._run_shell_cmd('/sbin/iptables -D %s %d' % (self._iptables_chain, k))
       elif cmd=='O':
           if not args.isdigit():
-              print " ** Error: dport should be an integer"
+              print (" ** Error: dport should be an integer")
               return
           self._run_shell_cmd('/sbin/iptables '+self._open_tcp_port.format(ip=ip, dport=args))
           self._run_shell_cmd('/sbin/iptables '+self._open_udp_port.format(ip=ip, dport=args))
       else:
-          print " ** Error: cmd=[%s] not supported" % cmd
+          print (" ** Error: cmd=[%s] not supported") % cmd
 
     def _worker(self):
         while self._keepworking:
@@ -104,7 +104,7 @@ class TariqServer(AnsweringMachine):
 
     def _process_conf(self, fn):
         c=readconf(fn)
-        print "config=", c
+        print ("config=", c)
         self._server_gpg_dir=c['server_gpg_dir']
         if not os.path.isabs(self._server_gpg_dir):
             self._server_gpg_dir=os.path.join(os.path.dirname(sys.argv[0]),self._server_gpg_dir)
@@ -144,7 +144,7 @@ class TariqServer(AnsweringMachine):
             n=len(self._hist[s])
             # if it's the same as last one, ignore it
             if n>1 and n<self._portsN and self._ports[n-1]==dp:
-              print "** duplicated port ignored"
+              print ("** duplicated port ignored")
               return False
             # make sure it's in right sequence
             if n<self._portsN and self._ports[n]==dp: return True
@@ -167,18 +167,18 @@ class TariqServer(AnsweringMachine):
         if tcp.flags==4:
             if dp!=self._ports[-1] or not self._challenge.has_key(s): return None
             if d.replace('\0',' ').strip()=='': return None
-            print "** Got challenge answer=[%s]" % d.__repr__()
+            print ("** Got challenge answer=[%s]") % d.__repr__()
             c,cmd,arg=self._challenge[s]
             if c==d:
-                print "** accepted, executing cmd=[%s] arg=[%s]" % (cmd,arg)
+                print ("** accepted, executing cmd=[%s] arg=[%s]") % (cmd,arg)
                 self._q.put((s, cmd, arg))
-            else: print "rejected"
+            else: print ("rejected")
             del self._challenge[s]
             return None
-        print "dp=",dp,
+        print ("dp=",dp,)
         #print "pk=", pk.__repr__()
         r=self._is_right_knock(s, dp)
-        print "** right order=", r
+        print ("** right order=", r)
         if not r: return None
         self._hist[s].append(d)
         if len(self._hist[s])==self._portsN:
@@ -190,11 +190,11 @@ class TariqServer(AnsweringMachine):
             except: return None
             try: email,cmd,arg=d.split(' ',2)
             except ValueError: return None
-            print "** last valid knock received, cmd=[%s] arg=[%s]" % (cmd, arg)
-            print "** sending challenge ..."
+            print ("** last valid knock received, cmd=[%s] arg=[%s]") % (cmd, arg)
+            print ("** sending challenge ...")
             dec_blob=randomblob(self._blobm,self._blobM)
             enc_blob=enc(self._gpg, dec_blob, email=email)
-            print "** expecting answer=[%s]" % dec_blob.__repr__()
+            print ("** expecting answer=[%s]") % dec_blob.__repr__()
             try: self._challenge[s]=(dec_blob, cmd, arg)
             except KeyError: return None
             return IP(dst=pk.src,src=pk.dst)/TCP(flags='SA',dport=tcp.sport, sport=tcp.dport, seq=tcp.seq)/enc_blob
@@ -209,7 +209,7 @@ def main():
     if not os.path.exists(fn):
         fn=os.path.abspath('server.conf')
     if not os.path.exists(fn):
-        print " ** Error: config file not found"
+        print (" ** Error: config file not found")
         exit(1)
     server=TariqServer(fn)
     server()

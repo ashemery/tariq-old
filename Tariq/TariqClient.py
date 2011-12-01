@@ -42,7 +42,7 @@ def knock(gpg, ports, email, img_fn, ip, cmd):
     s=email+" "+cmd
     msg=gen_payload(img_fn, s)
     l=len(msg)
-    print l
+    print (l)
     # open('delme2.png','wb+').write(msg)
     n=len(ports)
     msgs=split_msg(n, msg)
@@ -57,15 +57,15 @@ def knock(gpg, ports, email, img_fn, ip, cmd):
     i,p=-1,ports[-1]
     pk=IP(dst=ip)/TCP(flags='S', sport=sp, dport=p)/msgs[i]
     r,u=sr(pk,timeout=0.5)
-    if len(r)==0: print "** Error: no response"
-    print r.__repr__()
+    if len(r)==0: print ("** Error: no response")
+    print (r.__repr__())
     for pk in r[0]:
-        print "Got answer:",
-        if pk.payload.flags!=18: print "skipped"; continue
-        print "OK"
+        print ("Got answer:",)
+        if pk.payload.flags!=18: print ("skipped"); continue
+        print ("OK")
         enc_blob=str(pk.payload.payload)
         # print "payload: [%s]" % enc_blob
-        print "** SENDING REST:",
+        print ("** SENDING REST:",)
         dec_blob=dec(gpg, enc_blob)
         rpk=IP(dst=pk.src,src=pk.dst)/TCP(flags='R',dport=pk.sport, sport=pk.dport, seq=pk.seq+1)/dec_blob
         send(rpk)
@@ -73,7 +73,7 @@ def knock(gpg, ports, email, img_fn, ip, cmd):
 from getopt import getopt, GetoptError
 
 def usage():
-    print '''\
+    print ('''\
 Usage: {0} [-c CONF] [-p PORTS] [-i IMG_DIR] [-g GPGDIR] [-u USERID] TARGET COMMAND
 \tWhere:
 \t\t-c CONF
@@ -91,7 +91,7 @@ Usage: {0} [-c CONF] [-p PORTS] [-i IMG_DIR] [-g GPGDIR] [-u USERID] TARGET COMM
 \t\t\t* closes specified port
 \t\tE CMD
 \t\t\t* run specified command on server as root
-'''.format(os.path.basename(sys.argv[0]))
+''').format(os.path.basename(sys.argv[0]))
 
 def main():
     random.seed(time())
@@ -101,8 +101,8 @@ def main():
     }
     try:
         opts, args = getopt(sys.argv[1:], "c:p:i:g:u:", ["help"])
-    except GetoptError, err:
-        print str(err) # will print something like "option -a not recognized"
+    except (GetoptError, err):
+        print (str(err)) # will print something like "option -a not recognized"
         usage()
         sys.exit(1)
     opts=dict([(args_to_c.get(i,i),j) for i,j in opts])
@@ -120,13 +120,13 @@ def main():
     if not os.path.exists(fn):
         fn=os.path.abspath('client.conf')
     if not os.path.exists(fn):
-        print " ** Error: config file not found"
+        print (" ** Error: config file not found")
         usage()
         exit(3)
     c=readconf(fn)
     c.update(opts)
     if not all(map(lambda i: i in c,['secret_ports','img_dir', 'client_gpg_dir', 'user'])):
-        print " ** Error: missing required parameters"
+        print (" ** Error: missing required parameters")
         usage()
         exit(4)
     
@@ -135,28 +135,28 @@ def main():
     user=c['user']
     img_dir=c['img_dir']
     if not os.path.isdir(img_dir):
-      print " ** Error [%s] not found" % img_dir
+      print (" ** Error [%s] not found") % img_dir
       usage()
       exit(5)
 
     img_ls=glob.glob(os.path.join(img_dir,'*.png'))
     if not img_ls:
-      print " ** Error: no png images found on [%s]" % img_dir
+      print (" ** Error: no png images found on [%s]") % img_dir
       usage()
       exit(5)
     img=random.choice(img_ls)
     gpg_dir=c['client_gpg_dir']
     if not os.path.isdir(gpg_dir):
-      print " ** Error [%s] not found" % gpg_dir
-      print " ** trying client_gpg_dir=[%s]" % gpg_dir
+      print (" ** Error [%s] not found") % gpg_dir
+      print (" ** trying client_gpg_dir=[%s]") % gpg_dir
       gpg_dir=os.path.join(os.path.dirname(sys.argv[0]),'client-gpg')
     if not os.path.isdir(gpg_dir):
-        print " gpg dir not found"
+        print (" gpg dir not found")
         usage()
         exit(5)
     gpg = gnupg.GPG(gnupghome=gpg_dir)
     if len(args)<3:
-        print " ** missing TARGET CMD ARGS"
+        print (" ** missing TARGET CMD ARGS")
         usage()
         exit(6)
     target=args[0]
